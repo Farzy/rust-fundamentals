@@ -3,4 +3,5 @@ resolver = "2"
 members = [
     "tests",
     "memory_management",
+    "mars_calc",
 ]
