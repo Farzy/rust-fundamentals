@@ -1,4 +1,4 @@
-use super::method::Method;
+use super::Method;
 
 pub struct Request {
     path: String,
