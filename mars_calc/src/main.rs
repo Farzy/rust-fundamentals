@@ -9,7 +9,7 @@ fn main() {
     io::stdin().read_line(&mut input).unwrap();
     let weight: f32 = input.trim().parse().expect("expected a number");
 
-    let mut mars_weight = calculate_weight_on_mars(weight);
+    let mars_weight = calculate_weight_on_mars(weight);
     println!("Weight on Mars: {}kg", mars_weight); // Use "cargo expand" to expand the macro
 }
 
