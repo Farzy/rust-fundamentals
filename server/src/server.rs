@@ -17,7 +17,12 @@ impl Server {
         let listener = TcpListener::bind(&self.addr).unwrap();
 
         loop {
-
+            match listener.accept() {
+                Ok((stream, _)) => {
+                    println!("Got a connection: {:?}", stream);
+                },
+                Err(e) => println!("Failed to establish a connection: {}", e),
+            }
         }
     }
 }
