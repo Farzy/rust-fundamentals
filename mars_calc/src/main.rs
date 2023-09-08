@@ -1,9 +1,7 @@
 fn main() {
-    println!("Hello, {}! Number: {}", "world", 42); // Use "cargo expand" to expand the macro
-
-    calculate_weight_on_mars(100.0);
+    println!("Weight on Mars: {}kg", calculate_weight_on_mars(100.0)); // Use "cargo expand" to expand the macro
 }
 
 fn calculate_weight_on_mars(weight: f32) -> f32 {
-    50.0
+    (weight / 9.81) * 3.711
 }
