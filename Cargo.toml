@@ -4,4 +4,5 @@ members = [
     "tests",
     "memory_management",
     "mars_calc",
+    "server",
 ]
