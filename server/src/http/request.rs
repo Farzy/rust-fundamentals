@@ -48,6 +48,4 @@ impl Display for ParseError {
     }
 }
 
-impl Error for ParseError {
-
-}
+impl Error for ParseError {}

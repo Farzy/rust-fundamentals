@@ -1,7 +1,7 @@
 [workspace]
 resolver = "2"
 members = [
-    "tests",
+    "playground",
     "memory_management",
     "mars_calc",
     "server",
