@@ -29,6 +29,14 @@ impl TryFrom<&[u8]> for Request {
         // let request = str::from_utf8(buf).or(Err(ParseError::InvalidRequest))?;
 
         let request = str::from_utf8(buf)?;
+        let (method, request) = get_next_word(request).ok_or(ParseError::InvalidRequest)?;
+        let (path, request) = get_next_word(request).ok_or(ParseError::InvalidRequest)?;
+        let (protocol, _) = get_next_word(request).ok_or(ParseError::InvalidRequest)?;
+
+        if protocol != "HTTP/1.1" {
+            return Err(ParseError::InvalidProtocol);
+        }
+
         todo!()
     }
 }
@@ -44,12 +52,12 @@ fn get_next_word(request: &str) -> Option<(&str, &str)> {
     // }
 
     for (i, c) in request.chars().enumerate() {
-        if c == ' ' {
+        if c == ' ' || c == '\r' {
             // This code is safe because we know ' ' is 1 byte, so (i+1) skips exactly 1 char
             return Some((&request[..i], &request[i+1..]))
         }
     }
-    todo!()
+    None
 }
 
 pub enum ParseError {
