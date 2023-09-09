@@ -5,6 +5,7 @@ use std::fmt::{Debug, Display, Formatter, Result as FmtResult};
 use std::str;
 use std::str::Utf8Error;
 
+#[derive(Debug)]
 pub struct Request {
     path: String,
     query_string: Option<String>,
@@ -53,16 +54,22 @@ impl TryFrom<&[u8]> for Request {
         // let q = path.find('?');
         // if q.is_some() {
         //     let i = q.unwrap();
+        //     // Valid operation because '?' is 1 byte
         //     query_string = Some(&path[i+1..]);
         //     path = &path[..i];
         // }
 
         if let Some(i) = path.find('?') {
+            // Valid operation because '?' is 1 byte
             query_string = Some(&path[i+1..]);
             path = &path[..i];
         }
 
-        todo!()
+        Ok(Request {
+            path: path.to_string(),
+            query_string: query_string.map(|s| s.to_string()),
+            method,
+        })
     }
 }
 
