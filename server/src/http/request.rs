@@ -6,17 +6,17 @@ use std::str;
 use std::str::Utf8Error;
 
 #[derive(Debug)]
-pub struct Request {
-    path: String,
-    query_string: Option<String>,
+pub struct Request<'buf> {
+    path: &'buf str,
+    query_string: Option<&'buf str>,
     method: Method,
 }
 
-impl TryFrom<&[u8]> for Request {
+impl<'buf> TryFrom<&'buf [u8]> for Request<'buf> {
     type Error = ParseError;
 
     // GET /search?name=abs@sort=1 HTTP/1.1
-    fn try_from(buf: &[u8]) -> Result<Self, Self::Error> {
+    fn try_from(buf: &'buf [u8]) -> Result<Self, Self::Error> {
         // match str::from_utf8(buf) {
         //     Ok(request) => {},
         //     Err(_) => return Err(ParseError::InvalidEncoding),
@@ -61,12 +61,12 @@ impl TryFrom<&[u8]> for Request {
 
         if let Some(i) = path.find('?') {
             // Valid operation because '?' is 1 byte
-            query_string = Some(path[i+1..].to_string());
+            query_string = Some(&path[i+1..]);
             path = &path[..i];
         }
 
         Ok(Self {
-            path: path.to_string(),
+            path,
             query_string,
             method,
         })
