@@ -33,6 +33,25 @@ impl TryFrom<&[u8]> for Request {
     }
 }
 
+fn get_next_word(request: &str) -> Option<(&str, &str)> {
+    // let mut iter = request.chars();
+    // loop {
+    //     let item = iter.next();
+    //     match item {
+    //         Some(c) => {},
+    //         None => break,
+    //     }
+    // }
+
+    for (i, c) in request.chars().enumerate() {
+        if c == ' ' {
+            // This code is safe because we know ' ' is 1 byte, so (i+1) skips exactly 1 char
+            return Some((&request[..i], &request[i+1..]))
+        }
+    }
+    todo!()
+}
+
 pub enum ParseError {
     InvalidRequest,
     InvalidEncoding,
