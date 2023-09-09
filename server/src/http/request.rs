@@ -61,13 +61,13 @@ impl TryFrom<&[u8]> for Request {
 
         if let Some(i) = path.find('?') {
             // Valid operation because '?' is 1 byte
-            query_string = Some(&path[i+1..]);
+            query_string = Some(path[i+1..].to_string());
             path = &path[..i];
         }
 
-        Ok(Request {
+        Ok(Self {
             path: path.to_string(),
-            query_string: query_string.map(|s| s.to_string()),
+            query_string,
             method,
         })
     }
