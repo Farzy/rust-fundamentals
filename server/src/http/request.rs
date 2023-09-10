@@ -83,7 +83,7 @@ fn get_next_word(request: &str) -> Option<(&str, &str)> {
     //     }
     // }
 
-    for (i, c) in request.chars().enumerate() {
+    for (i, c) in request.char_indices() {
         if c == ' ' || c == '\r' {
             // This code is safe because we know ' ' is 1 byte, so (i+1) skips exactly 1 char
             return Some((&request[..i], &request[i+1..]))
