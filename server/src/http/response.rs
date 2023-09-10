@@ -1,4 +1,3 @@
-use std::fmt::{Display, Formatter};
 use std::io::{Write, Result as IoResult};
 use std::net::TcpStream;
 use super::StatusCode;

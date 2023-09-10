@@ -1,5 +1,5 @@
 use crate::http::{Request, Response, StatusCode};
-use std::io::{Read, Write};
+use std::io::{Read};
 use std::net::TcpListener;
 
 pub struct Server {
