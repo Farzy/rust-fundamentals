@@ -97,16 +97,16 @@ pub enum ParseError {
     InvalidRequest,
     InvalidEncoding,
     InvalidProtocol,
-    InvalidMethod,
+    InvalidMethod(String),
 }
 
 impl ParseError {
-    fn message(&self) -> &str {
+    fn message(&self) -> String {
         match self {
-            Self::InvalidRequest => "Invalid Request",
-            Self::InvalidEncoding => "Invalid Encoding",
-            Self::InvalidProtocol => "Invalid Protocol",
-            Self::InvalidMethod => "Invalid Method",
+            Self::InvalidRequest => "Invalid Request".to_string(),
+            Self::InvalidEncoding => "Invalid Encoding".to_string(),
+            Self::InvalidProtocol => "Invalid Protocol".to_string(),
+            Self::InvalidMethod(m) => format!("Invalid Method: {}", m),
         }
     }
 }
@@ -118,8 +118,8 @@ impl From<Utf8Error> for ParseError {
 }
 
 impl From<MethodError> for ParseError {
-    fn from(_: MethodError) -> Self {
-        Self::InvalidMethod
+    fn from(e: MethodError) -> Self {
+        Self::InvalidMethod(e.0)
     }
 }
 

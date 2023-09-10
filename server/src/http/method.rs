@@ -28,9 +28,9 @@ impl FromStr for Method {
             "OPTIONS" => Ok(Self::OPTIONS),
             "TRACE" => Ok(Self::TRACE),
             "PATCH" => Ok(Self::PATCH),
-            _ => Err(MethodError)
+            _ => Err(MethodError(s.to_string())),
         }
     }
 }
 
-pub struct MethodError;
+pub struct MethodError(pub String);
