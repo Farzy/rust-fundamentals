@@ -1,5 +1,4 @@
 use std::io::{Write, Result as IoResult};
-use std::net::TcpStream;
 use super::StatusCode;
 
 #[derive(Debug)]
@@ -13,7 +12,11 @@ impl Response {
         Response { status_code, body}
     }
 
-    pub fn send(&self, stream: &mut TcpStream) -> IoResult<()> {
+    // With "dyn" the compiler creates a VTable for function lookup, there is some overhead.
+    // pub fn send(&self, stream: &mut dyn Write) -> IoResult<()> {
+    // With "impl", the compiler duplicates the function for every concrete type it encounters
+    // in the function calls throughout the code.
+    pub fn send(&self, stream: &mut impl Write) -> IoResult<()> {
         let body = match &self.body {
             Some(b) => b,
             None => ""
