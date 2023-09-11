@@ -43,11 +43,18 @@ fn try_create(paragraph: &str) -> Option<S> {
 }
 
 fn sentences() {
-    let sentence = "For example, let’s say you want to find the first and the last sentence of a paragraph and keep them in a struct S. Because you don’t want to copy the data, you need to use references and give them lifetime annotations. You could use a function like this to populate the struct. For simplicity’s sake, we’ll assume that a full stop is the only sentence-ending punctuation mark in use. If the paragraph is empty, return None, and if there is only a single sentence, use that as both the first and the last sentence.";
-    if let Some(S {first, last}) = try_create(sentence) {
-        println!("First Sentence: “{}“.", first);
-        println!("Last Sentence: “{}“.", last);
-    } else {
-        println!("No sentence found");
+    let paragraphs = [
+        "For example, let’s say you want to find the first and the last sentence of a paragraph and keep them in a struct S. Because you don’t want to copy the data, you need to use references and give them lifetime annotations. You could use a function like this to populate the struct. For simplicity’s sake, we’ll assume that a full stop is the only sentence-ending punctuation mark in use. If the paragraph is empty, return None, and if there is only a single sentence, use that as both the first and the last sentence.",
+        "This is a single sentence with no dot",
+        ""
+        ];
+    for (i, paragraph) in paragraphs.iter().enumerate() {
+        println!("* Paragraph number {}:", i + 1);
+        if let Some(S { first, last }) = try_create(paragraph) {
+            println!("First Sentence: “{}“.", first);
+            println!("Last Sentence: “{}“.", last);
+        } else {
+            println!("No sentence found");
+        }
     }
 }
