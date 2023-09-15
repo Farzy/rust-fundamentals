@@ -1,5 +1,5 @@
 use crate::http::{ParseError, Request, Response, StatusCode};
-use std::io::{Read};
+use std::io::Read;
 use std::net::TcpListener;
 
 pub trait Handler {
@@ -16,9 +16,7 @@ pub struct Server {
 
 impl Server {
     pub fn new(addr: String) -> Self {
-        Self {
-            addr
-        }
+        Self { addr }
     }
 
     pub fn run(self, mut handler: impl Handler) {
@@ -35,12 +33,8 @@ impl Server {
                         Ok(_) => {
                             println!("Received a request: {}", String::from_utf8_lossy(&buffer));
                             let response = match Request::try_from(&buffer[..]) {
-                                Ok(request) => {
-                                    handler.handle_request(&request)
-                                },
-                                Err(e) => {
-                                    handler.handle_bad_request(&e)
-                                },
+                                Ok(request) => handler.handle_request(&request),
+                                Err(e) => handler.handle_bad_request(&e),
                             };
 
                             if let Err(e) = response.send(&mut stream) {
@@ -48,10 +42,10 @@ impl Server {
                             }
 
                             // let res: &Result<Request, _> = &buffer[..].try_into();
-                        },
+                        }
                         Err(e) => println!("Failed to read from connection: {}", e),
                     }
-                },
+                }
                 Err(e) => println!("Failed to establish a connection: {}", e),
             }
         }

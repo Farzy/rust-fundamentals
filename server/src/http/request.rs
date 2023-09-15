@@ -1,5 +1,5 @@
 use super::method::{Method, MethodError};
-use super::{QueryString};
+use super::QueryString;
 use std::convert::TryFrom;
 use std::error::Error;
 use std::fmt::{Debug, Display, Formatter, Result as FmtResult};
@@ -76,7 +76,7 @@ impl<'buf> TryFrom<&'buf [u8]> for Request<'buf> {
 
         if let Some(i) = path.find('?') {
             // Valid operation because '?' is 1 byte
-            query_string = Some(QueryString::from(&path[i+1..]));
+            query_string = Some(QueryString::from(&path[i + 1..]));
             path = &path[..i];
         }
 
@@ -101,7 +101,7 @@ fn get_next_word(request: &str) -> Option<(&str, &str)> {
     for (i, c) in request.char_indices() {
         if c == ' ' || c == '\r' {
             // This code is safe because we know ' ' is 1 byte, so (i+1) skips exactly 1 char
-            return Some((&request[..i], &request[i+1..]))
+            return Some((&request[..i], &request[i + 1..]));
         }
     }
     None

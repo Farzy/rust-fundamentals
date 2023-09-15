@@ -1,9 +1,9 @@
-use std::fs;
 use super::http::{Method, Request, Response, StatusCode};
 use super::server::Handler;
+use std::fs;
 
 pub struct WebsiteHandler {
-    public_path: String
+    public_path: String,
 }
 
 impl WebsiteHandler {
@@ -37,9 +37,11 @@ impl Handler for WebsiteHandler {
                 "/hello" => Response::new(StatusCode::Ok, self.read_file("hello.html")),
                 path => match self.read_file(path) {
                     Some(contents) => Response::new(StatusCode::Ok, Some(contents)),
-                    None => Response::new(StatusCode::NotFound, Some(String::from("Not Found\r\n"))),
-                }
-            }
+                    None => {
+                        Response::new(StatusCode::NotFound, Some(String::from("Not Found\r\n")))
+                    }
+                },
+            },
             _ => Response::new(StatusCode::NotFound, Some(String::from("Not Found\r\n"))),
         }
     }

@@ -3,7 +3,7 @@ use std::collections::HashMap;
 // Sample: a=1&b=2&c&d=&e===&d=7&d=abc
 #[derive(Debug)]
 pub struct QueryString<'buf> {
-    data: HashMap<&'buf str, Value<'buf>>
+    data: HashMap<&'buf str, Value<'buf>>,
 }
 
 #[derive(Debug)]
@@ -28,7 +28,7 @@ impl<'buf> From<&'buf str> for QueryString<'buf> {
 
             if let Some(i) = sub_str.find('=') {
                 key = &sub_str[..i];
-                val = &sub_str[i+1..];
+                val = &sub_str[i + 1..];
             }
 
             data.entry(key)
@@ -36,7 +36,7 @@ impl<'buf> From<&'buf str> for QueryString<'buf> {
                     Value::Single(prev_val) => {
                         *existing = Value::Multiple(vec![prev_val, val]);
                     }
-                    Value::Multiple(vec) => vec.push(val)
+                    Value::Multiple(vec) => vec.push(val),
                 })
                 .or_insert(Value::Single(val));
         }

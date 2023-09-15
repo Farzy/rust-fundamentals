@@ -1,5 +1,5 @@
-use std::io::{Write, Result as IoResult};
 use super::StatusCode;
+use std::io::{Result as IoResult, Write};
 
 #[derive(Debug)]
 pub struct Response {
@@ -9,7 +9,7 @@ pub struct Response {
 
 impl Response {
     pub fn new(status_code: StatusCode, body: Option<String>) -> Self {
-        Response { status_code, body}
+        Response { status_code, body }
     }
 
     // With "dyn" the compiler creates a VTable for function lookup, there is some overhead.
@@ -19,7 +19,7 @@ impl Response {
     pub fn send(&self, stream: &mut impl Write) -> IoResult<()> {
         let body = match &self.body {
             Some(b) => b,
-            None => ""
+            None => "",
         };
 
         write!(
@@ -29,6 +29,5 @@ impl Response {
             self.status_code.reason_phrase(),
             body
         )
-
     }
 }

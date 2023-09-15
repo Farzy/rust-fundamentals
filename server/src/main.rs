@@ -1,11 +1,11 @@
 #![allow(dead_code)]
 
-mod server;
 mod http;
+mod server;
 mod website_handler;
 
-use std::env;
 use server::Server;
+use std::env;
 use website_handler::WebsiteHandler;
 
 fn main() {
