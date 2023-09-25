@@ -43,6 +43,9 @@ dependencies = [
 [[package]]
 name = "playground2"
 version = "0.1.0"
+dependencies = [
+ "rand",
+]
 
 [[package]]
 name = "ppv-lite86"

@@ -1,3 +1,5 @@
+mod threads;
+
 use std::cell::RefCell;
 use std::rc::{Rc, Weak};
 use crate::List::*;
@@ -21,6 +23,7 @@ fn main() {
     circular_reference();
     weak_reference();
     weak_reference2();
+    threads::main();
 }
 
 fn circular_reference() {
