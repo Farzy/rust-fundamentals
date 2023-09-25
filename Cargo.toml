@@ -2,6 +2,7 @@
 resolver = "2"
 members = [
     "playground",
+    "playground2",
     "memory_management",
     "mars_calc",
     "server",
