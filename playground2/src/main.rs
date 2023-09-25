@@ -24,6 +24,8 @@ fn main() {
 }
 
 fn circular_reference() {
+    println!("### Testing circular references\n");
+
     let a = Rc::new(Cons(5, RefCell::new(Rc::new(Nil))));
 
     println!("a initial rc count = {}", Rc::strong_count(&a));
@@ -55,6 +57,8 @@ struct Node {
 }
 
 fn weak_reference() {
+    println!("### Testing weak references 1\n");
+
     let leaf = Rc::new(Node {
         value: 3,
         parent: RefCell::new(Weak::new()),
@@ -72,6 +76,8 @@ fn weak_reference() {
 }
 
 fn weak_reference2() {
+    println!("### Testing weak references 2\n");
+
     let leaf = Rc::new(Node {
         value: 3,
         parent: RefCell::new(Weak::new()),
@@ -90,6 +96,7 @@ fn weak_reference2() {
             children: RefCell::new(vec![Rc::clone(&leaf)]),
         });
         *leaf.parent.borrow_mut() = Rc::downgrade(&branch);
+        println!("leaf parent: {:?}", leaf.parent.borrow().upgrade());
         println!(
             "branch strong = {}, weak = {}",
             Rc::strong_count(&branch),
