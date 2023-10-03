@@ -24,6 +24,7 @@ fn main() {
     weak_reference();
     weak_reference2();
     threads::main();
+    raw_strings();
 }
 
 fn circular_reference() {
@@ -118,4 +119,17 @@ fn weak_reference2() {
         Rc::strong_count(&leaf),
         Rc::weak_count(&leaf)
     );
+}
+
+fn raw_strings() {
+    println!("### Testing raw strings\n");
+
+    let png_signature = br#"\x89PNG\r\n\x1a\n"#;
+
+    println!("Raw string (len {}): {:?}", png_signature.len(), png_signature);
+
+    for &c in png_signature {
+        print!("{}", c as char);
+    }
+    println!();
 }
