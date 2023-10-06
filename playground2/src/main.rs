@@ -1,3 +1,5 @@
+#![feature(array_windows)]
+
 mod threads;
 mod copied;
 mod windows;

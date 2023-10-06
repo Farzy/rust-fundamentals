@@ -55,4 +55,22 @@ pub fn main() {
         .collect::<Vec<_>>();
     println!("Coordinates: {points:?}");
     println!("Coordinates differences: {differences:?}");
+
+    println!("- Using array_windows() in for loop (nightly feature)");
+    let mut differences = Vec::new();
+    for [previous, current] in points.array_windows().copied() {
+        differences.push(current - previous);
+    }
+    println!("Coordinates: {points:?}");
+    println!("Coordinates differences: {differences:?}");
+
+    println!("- Using array_windows() and iterators (nightly feature)");
+    let mut differences: Vec<_> = points
+        .array_windows()
+        .copied()
+        .map(|[previous, current]| current - previous)
+        .collect();
+    println!("Coordinates: {points:?}");
+    println!("Coordinates differences: {differences:?}");
+
 }
