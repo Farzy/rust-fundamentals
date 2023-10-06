@@ -15,7 +15,7 @@ pub struct Request<'buf> {
 
 impl<'buf> Request<'buf> {
     pub fn path(&self) -> &str {
-        &self.path
+        self.path
     }
 
     pub fn method(&self) -> &Method {
@@ -107,6 +107,7 @@ fn get_next_word(request: &str) -> Option<(&str, &str)> {
     None
 }
 
+#[allow(clippy::enum_variant_names)]
 pub enum ParseError {
     InvalidRequest,
     InvalidEncoding,

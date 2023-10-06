@@ -17,8 +17,8 @@ enum List {
 impl List {
     fn tail(&self) -> Option<&RefCell<Rc<List>>> {
         match self {
-            List::Cons(_, item) => Some(item),
-            List::Nil => None,
+            Cons(_, item) => Some(item),
+            Nil => None,
         }
     }
 }
@@ -60,6 +60,7 @@ fn circular_reference() {
 }
 
 #[derive(Debug)]
+#[allow(dead_code)]
 struct Node {
     value: i32,
     parent: RefCell<Weak<Node>>,
