@@ -1,4 +1,6 @@
 mod threads;
+mod copied;
+mod windows;
 
 use std::cell::RefCell;
 use std::rc::{Rc, Weak};
@@ -25,6 +27,8 @@ fn main() {
     weak_reference2();
     threads::main();
     raw_strings();
+    copied::main();
+    windows::main();
 }
 
 fn circular_reference() {
