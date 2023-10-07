@@ -1,5 +1,4 @@
 #![allow(unused)]
-
 use std::ops::Sub;
 
 #[derive(Debug, Copy, Clone)]
