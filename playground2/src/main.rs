@@ -1,5 +1,3 @@
-#![feature(array_windows)]
-
 mod threads;
 mod copied;
 mod windows;
@@ -9,6 +7,7 @@ use std::rc::{Rc, Weak};
 use crate::List::*;
 
 #[derive(Debug)]
+#[allow(dead_code)]
 enum List {
     Cons(i32, RefCell<Rc<List>>),
     Nil,

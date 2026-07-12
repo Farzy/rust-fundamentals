@@ -22,7 +22,7 @@ impl<'buf> Request<'buf> {
         &self.method
     }
 
-    pub fn query_string(&self) -> Option<&QueryString> {
+    pub fn query_string(&self) -> Option<&QueryString<'buf>> {
         self.query_string.as_ref()
     }
 }

@@ -27,7 +27,7 @@ mod tests {
                 "SELECT * from Users where id=22".to_owned()
             ))
             .once()
-            .returning(|_x| (()));
+            .returning(|_x| ());
 
 
         get_user(mock_database, 22);
