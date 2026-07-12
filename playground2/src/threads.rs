@@ -12,14 +12,14 @@
 
 use std::thread;
 use std::time::{Duration, Instant};
-use rand::Rng;
+use rand::RngExt;
 
 pub(crate) fn main() {
     let mut handles = vec![];
-    let mut rng = rand::thread_rng();
+    let mut rng = rand::rng();
 
     for i in 0..10 {
-        let duration = rng.gen_range(10u64..250);
+        let duration = rng.random_range(10u64..250);
         handles.push(thread::spawn(move || {
             let start = Instant::now();
             thread::sleep(Duration::from_millis(duration));
