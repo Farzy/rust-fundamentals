@@ -33,7 +33,7 @@ struct S<'a> {
     last: &'a str,
 }
 
-fn try_create(paragraph: &str) -> Option<S> {
+fn try_create(paragraph: &str) -> Option<S<'_>> {
     let mut sentences = paragraph.split('.').filter(|s| !s.is_empty());
     match (sentences.next(), sentences.next_back()) {
         (Some(first), Some(last)) => Some(S { first, last }),

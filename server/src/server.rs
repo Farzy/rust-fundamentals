@@ -30,9 +30,9 @@ impl Server {
                     println!("Got a connection: {:?}", stream);
                     let mut buffer = [0; 1024];
                     match stream.read(&mut buffer) {
-                        Ok(_) => {
-                            println!("Received a request: {}", String::from_utf8_lossy(&buffer));
-                            let response = match Request::try_from(&buffer[..]) {
+                        Ok(bytes_read) => {
+                            println!("Received a request: {}", String::from_utf8_lossy(&buffer[..bytes_read]));
+                            let response = match Request::try_from(&buffer[..bytes_read]) {
                                 Ok(request) => handler.handle_request(&request),
                                 Err(e) => handler.handle_bad_request(&e),
                             };
